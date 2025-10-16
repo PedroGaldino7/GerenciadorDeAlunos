@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciadorAlunos {
-    private List<Alunos> alunos;
-    private final String arquivo = "alunos.txt";
+public class GerenciadorAvaliacoes {
 
-    public GerenciadorAlunos(){
-        this.alunos = new ArrayList<>();
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
+    public void adicionarAvaliacao(Avaliacao av){
+        avaliacoes.add(av);
     }
 }
