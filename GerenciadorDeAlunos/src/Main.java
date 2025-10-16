@@ -19,11 +19,13 @@ public class Main {
 
         do{
             limparTela();
+            
             System.out.println("=== Gerenciador de Alunos ===");
             System.out.println("1. Cadastrar Aluno");
             System.out.println("2. Listar Alunos");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opcao: ");
+
             try {
                 opcao = sc.nextInt();
                 sc.nextLine();
