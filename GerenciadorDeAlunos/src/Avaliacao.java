@@ -14,11 +14,6 @@ public class Avaliacao {
         this.n3 = nota3;
     }
 
-    public float calcularMedia() {
-        this.media = (n1 + n2 + n3) / 3;
-        return media;
-    }
-
     @Override
     public String toString() {
         return "Avaliacao [aluno=" + aluno + ", materia=" + materia + ", n1=" + n1 + ", n2=" + n2 + ", n3=" + n3

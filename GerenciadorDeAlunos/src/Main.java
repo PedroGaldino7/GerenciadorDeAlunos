@@ -33,8 +33,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
+
         GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
+        GerenciadorMateria gerenciadorMateria = new GerenciadorMateria();
+        
+        gerenciadorMateria.carregarMateriasDoArquivo();
         gerenciadorAluno.carregarAlunosDoArquivo();
+
         int opcao = 0;
 
         do{
@@ -60,7 +65,7 @@ public class Main {
                             case 1:
                             limparTela();
                                 System.out.println("Nome do Aluno: ");
-                                String nome = sc.nextLine();
+                                String nomeAluno = sc.nextLine();
                                 System.out.println("Matricula do Aluno: ");
                                 String matricula = sc.nextLine();
                                 
@@ -70,7 +75,7 @@ public class Main {
                                     break;
 
                                 }else {
-                                    Aluno aluno = new Aluno(nome, matricula);
+                                    Aluno aluno = new Aluno(nomeAluno, matricula);
                                     gerenciadorAluno.salvarAlunosEmArquivo(aluno);
                                     pausa(sc);
                                 }
@@ -78,8 +83,24 @@ public class Main {
 
                             case 2:
                             limparTela();
-                                System.out.println("Funcionalidade de cadastrar matéria ainda nao implementada.");
-                                pausa(sc);
+                                System.out.println("Nome da matéria: ");
+                                String nomeMateria  = sc.nextLine();
+                                System.out.println("Carga horária da matéria (em horas): ");
+                                int cargaHoraria = sc.nextInt();
+                                sc.nextLine();
+                                System.out.println("Código da matéria: ");
+                                String codigo = sc.nextLine();
+                                
+                                if (gerenciadorMateria.verificadorMateriaExistente(codigo)) {
+                                    System.out.println("Matéria ja cadastrada! Operacao cancelada.");
+                                    pausa(sc);
+                                    break;
+
+                                }else {
+                                    Materia materia = new Materia(nomeMateria, cargaHoraria, codigo);
+                                    gerenciadorMateria.salvarMateriasEmArquivo(materia);
+                                    pausa(sc);
+                                }
                                 break;
 
                             case 0:
@@ -117,7 +138,7 @@ public class Main {
 
                             case 2:
                             limparTela();
-                                System.out.println("Funcionalidade de listar matérias ainda nao implementada.");
+                                gerenciadorMateria.verificarArquivoVazio();
                                 pausa(sc);
                                 break;
 
