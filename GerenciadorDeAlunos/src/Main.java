@@ -9,7 +9,7 @@ public class Main {
     }
 
     public static void pausa(Scanner sc) {
-        System.out.println("\nPressione ENTER para voltar ao menu...");
+        System.out.println("\nPressione ENTER para voltar ao menu:");
         sc.nextLine(); 
     }
 
@@ -21,6 +21,7 @@ public class Main {
                 opcao = sc.nextInt();
                 sc.nextLine();
                 break;
+
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, insira um número.");
                 sc.nextLine();
@@ -44,8 +45,6 @@ public class Main {
             System.out.println("2. Inserir notas do aluno");
             System.out.println("3. Listar");
             System.out.println("0. Sair");
-            System.out.print("Escolha uma opcao: ");
-
             opcao = lerOpcao(sc, "Escolha uma opcao: ");
 
                 switch(opcao) {
@@ -55,7 +54,6 @@ public class Main {
                         System.out.println("1. Cadastrar Aluno: ");
                         System.out.println("2. Cadastrar Matéria: ");
                         System.out.println("0. Voltar ao menu principal");
-                        System.out.print("Escolha uma opcao: ");
                         int cadOpcao = lerOpcao(sc, "Escolha uma opcao: ");
 
                         switch(cadOpcao) {
@@ -65,9 +63,17 @@ public class Main {
                                 String nome = sc.nextLine();
                                 System.out.println("Matricula do Aluno: ");
                                 String matricula = sc.nextLine();
-                                Aluno aluno = new Aluno(nome, matricula);
-                                GerenciadorAluno.salvarAlunosEmArquivo(aluno);
-                                pausa(sc);
+                                
+                                if (gerenciadorAluno.verificadorAlunoExistente(matricula)) {
+                                    System.out.println("Matricula ja cadastrada! Operacao cancelada.");
+                                    pausa(sc);
+                                    break;
+
+                                }else {
+                                    Aluno aluno = new Aluno(nome, matricula);
+                                    gerenciadorAluno.salvarAlunosEmArquivo(aluno);
+                                    pausa(sc);
+                                }
                                 break;
 
                             case 2:
@@ -100,7 +106,6 @@ public class Main {
                         System.out.println("1. Listar Alunos: ");
                         System.out.println("2. Listar Matérias: ");
                         System.out.println("0. Voltar ao menu principal");
-                        System.out.print("Escolha uma opcao: ");
                         int listOpcao = lerOpcao(sc, "Escolha uma opcao: ");
 
                         switch(listOpcao) {

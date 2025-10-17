@@ -12,12 +12,20 @@ public class GerenciadorAluno {
     public GerenciadorAluno() {
         this.alunos = new ArrayList<>();
     }
-    
-    
 
-    public static void salvarAlunosEmArquivo(Aluno aluno) {
+    public boolean verificadorAlunoExistente(String matricula){
+        for (Aluno a : alunos) {
+            if (a.getMatricula().equals(matricula)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void salvarAlunosEmArquivo(Aluno aluno) {
         try (FileWriter writer = new FileWriter("alunos.txt", true)) {
             writer.write(aluno.getNome() + ";" + aluno.getMatricula() + "\n");
+            alunos.add(aluno);
             System.out.println("Aluno salvo com sucesso!");
 
         } catch (IOException e) {
@@ -42,7 +50,6 @@ public class GerenciadorAluno {
                     alunos.add(aluno);
                 }
             }
-            System.out.println("Alunos carregados do arquivo com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao carregar alunos: " + e.getMessage());
         }
@@ -54,7 +61,7 @@ public class GerenciadorAluno {
         } else {
             System.out.println("=== LISTA DE ALUNOS ===");
             for (Aluno a : alunos) {
-                System.out.println("- " + a);
+                System.out.println("- " + a.getNome() + " (Matrícula: " + a.getMatricula() + ")");
             }
         }
     }
