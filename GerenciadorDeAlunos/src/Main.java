@@ -24,7 +24,7 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, insira um número.");
                 sc.nextLine();
-                break;
+                continue;
             }
         }
         return opcao;
@@ -32,6 +32,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
+        GerenciadorAluno gerenciadorAluno = new GerenciadorAluno();
+        gerenciadorAluno.carregarAlunosDoArquivo();
         int opcao = 0;
 
         do{
@@ -48,22 +50,86 @@ public class Main {
 
                 switch(opcao) {
                     case 1:
-                        System.out.print("Nome do Aluno: ");
-                        String nome = sc.nextLine();
-                        System.out.print("Matricula do Aluno: ");
-                        String matricula = sc.nextLine();
-                        Aluno aluno = new Aluno(nome, matricula);
-                        System.out.println("Aluno cadastrado: " + aluno);
-                        pausa(sc);
+                    limparTela();
+                        System.out.println("=== Cadastrar ===");
+                        System.out.println("1. Cadastrar Aluno: ");
+                        System.out.println("2. Cadastrar Matéria: ");
+                        System.out.println("0. Voltar ao menu principal");
+                        System.out.print("Escolha uma opcao: ");
+                        int cadOpcao = lerOpcao(sc, "Escolha uma opcao: ");
+
+                        switch(cadOpcao) {
+                            case 1:
+                            limparTela();
+                                System.out.println("Nome do Aluno: ");
+                                String nome = sc.nextLine();
+                                System.out.println("Matricula do Aluno: ");
+                                String matricula = sc.nextLine();
+                                Aluno aluno = new Aluno(nome, matricula);
+                                GerenciadorAluno.salvarAlunosEmArquivo(aluno);
+                                pausa(sc);
+                                break;
+
+                            case 2:
+                            limparTela();
+                                System.out.println("Funcionalidade de cadastrar matéria ainda nao implementada.");
+                                pausa(sc);
+                                break;
+
+                            case 0:
+                                System.out.println("\nVoltando ao menu principal...");
+                                pausa(sc);
+                                break;
+
+                            default:
+                                System.out.println("\nOpcao invalida! Tente novamente.");
+                                pausa(sc);
+                                break;
+                        }
                         break;
 
                     case 2:
-                        System.out.println("Funcionalidade de listar alunos ainda nao implementada.");
+                    limparTela();
+                        System.out.println("Funcionalidade ainda nao implementada.");
                         pausa(sc);
                         break;
 
+                    case 3:
+                    limparTela();
+                        System.out.println("=== Listar ===");
+                        System.out.println("1. Listar Alunos: ");
+                        System.out.println("2. Listar Matérias: ");
+                        System.out.println("0. Voltar ao menu principal");
+                        System.out.print("Escolha uma opcao: ");
+                        int listOpcao = lerOpcao(sc, "Escolha uma opcao: ");
+
+                        switch(listOpcao) {
+                            case 1:
+                            limparTela();
+                                gerenciadorAluno.verificarArquivoVazio();
+                                pausa(sc);
+                                break;
+
+                            case 2:
+                            limparTela();
+                                System.out.println("Funcionalidade de listar matérias ainda nao implementada.");
+                                pausa(sc);
+                                break;
+
+                            case 0:
+                                System.out.println("\nVoltando ao menu principal...");
+                                pausa(sc);
+                                break;
+
+                            default:
+                                System.out.println("\nOpcao invalida! Tente novamente.");
+                                pausa(sc);
+                                break;
+                        }
+                        break;
+
                     case 0:
-                        System.out.println("Saindo...");
+                        System.out.println("\nSaindo...");
                         break;
 
                     default:
@@ -71,7 +137,7 @@ public class Main {
                         pausa(sc);
                         break;
                 }
-            
+
         }while(opcao != 0);
     }
 }

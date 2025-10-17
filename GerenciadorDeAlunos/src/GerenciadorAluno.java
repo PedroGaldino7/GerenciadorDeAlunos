@@ -1,3 +1,75 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GerenciadorAluno {
+    private List<Aluno> alunos;
+
+    public GerenciadorAluno() {
+        this.alunos = new ArrayList<>();
+    }
     
+    
+
+    public static void salvarAlunosEmArquivo(Aluno aluno) {
+        try (FileWriter writer = new FileWriter("alunos.txt", true)) {
+            writer.write(aluno.getNome() + ";" + aluno.getMatricula() + "\n");
+            System.out.println("Aluno salvo com sucesso!");
+
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar o aluno: " + e.getMessage());
+        }
+    }
+
+    public void carregarAlunosDoArquivo() {
+        File arquivo = new File("alunos.txt");
+
+        if (!arquivo.exists() || arquivo.length() == 0) {
+            System.out.println("Nenhum aluno cadastrado ainda.");
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                if (dados.length == 2) {
+                    Aluno aluno = new Aluno(dados[0], dados[1]);
+                    alunos.add(aluno);
+                }
+            }
+            System.out.println("Alunos carregados do arquivo com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar alunos: " + e.getMessage());
+        }
+    }
+
+    public void listarAlunos() {
+        if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+        } else {
+            System.out.println("=== LISTA DE ALUNOS ===");
+            for (Aluno a : alunos) {
+                System.out.println("- " + a);
+            }
+        }
+    }
+    
+    public void verificarArquivoVazio() {
+        File arquivo = new File("alunos.txt");
+
+        if (!arquivo.exists() || arquivo.length() == 0) {
+            System.out.println("Nenhum aluno cadastrado no arquivo.");
+        } else {
+            listarAlunos();
+        }
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
 }

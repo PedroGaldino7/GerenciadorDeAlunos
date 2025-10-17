@@ -26,6 +26,6 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return "Alunos [nome=" + nome + ", matricula=" + matricula + "]";
+        return "Alunos [nome = " + nome + ", matricula = " + matricula + "]";
     }
 }
