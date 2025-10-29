@@ -63,7 +63,7 @@ public class GerenciadorMateria {
         }else{
                 System.out.println("=== LISTA DE MATÉRIAS ===");
             for (Materia m  : materias) {
-                System.out.println("- " + m.getNomeMateria() + " | Código: " + m.getCargaHoraria() + " | Carga horária: " + m.getCodigo());
+                System.out.println("- " + m.getNomeMateria() + " | Código: " + m.getCodigo() + " | Carga horária: " + m.getCargaHoraria());
             }
             }
         }
