@@ -122,37 +122,61 @@ public class Main {
 
                         System.out.println("=== Inserir notas do aluno ===\n");
                         System.out.println("Selecione o aluno: ");
+
                             if (gerenciadorAluno.getAlunos().isEmpty()) {
                                 System.out.println("Nenhum aluno cadastrado.");
                                 pausa(sc);
                                 break;
                             }
                             else{
+
                                 for(int i = 0; i < gerenciadorAluno.getAlunos().size(); i++){
                                     Aluno a = gerenciadorAluno.getAlunos().get(i);
                                     System.out.println((i + 1) + ". " + a.getNome() + " (Matrícula: " + a.getMatricula() + ")");
                                 }
+
                                 System.out.print("Escolha uma opcao: ");
-                                int alunoIndex = sc.nextInt() - 1;
-                                sc.nextLine();
+                                int alunoIndex;
 
-                                Aluno alunoSelecionado = gerenciadorAluno.getAlunos().get(alunoIndex);
+                                try {
+                                    alunoIndex = sc.nextInt() - 1;
+                                    sc.nextLine();
 
-                                limparTela();
-                                System.out.println("\nSelecione a matéria: ");
-                                if (gerenciadorMateria.getMaterias().isEmpty()) {
-                                    System.out.println("Nenhuma matéria cadastrada.");
-                                    pausa(sc);
-                                    break;
-                                }
+                                    if (alunoIndex < 0 || alunoIndex >= gerenciadorAluno.getAlunos().size()) {
+                                        System.out.println("Aluno inválido! Tente novamente.");
+                                        pausa(sc);
+                                        break;
+                                    }
+                                    Aluno alunoSelecionado = gerenciadorAluno.getAlunos().get(alunoIndex);
+
+                                    limparTela();
+                                    System.out.println("\nSelecione a matéria: ");
+
+                                    if (gerenciadorMateria.getMaterias().isEmpty()) {
+                                        System.out.println("Nenhuma matéria cadastrada.");
+                                        pausa(sc);
+                                        break;
+                                    }
+
                                 else{
+
                                     for(int i = 0; i < gerenciadorMateria.getMaterias().size(); i++){
                                         Materia m = gerenciadorMateria.getMaterias().get(i);
                                         System.out.println((i + 1) + ". " + m.getNomeMateria() + " (Código: " + m.getCodigo() + ")");
                                     }
+                                    
                                     System.out.print("Escolha uma opcao: ");
-                                    int materiaIndex = sc.nextInt() - 1;
+                                    int materiaIndex;
+
+                                    try {
+                                    materiaIndex = sc.nextInt() - 1;
                                     sc.nextLine();
+
+                                    if (materiaIndex < 0 || materiaIndex >= gerenciadorMateria.getMaterias().size()) {
+                                        System.out.println("Matéria inválida! Tente novamente.");
+                                        pausa(sc);
+                                        break;
+                                    }
 
                                     Materia materiaSelecionada = gerenciadorMateria.getMaterias().get(materiaIndex);
 
@@ -169,6 +193,20 @@ public class Main {
                                     Avaliacao avaliacao = new Avaliacao(alunoSelecionado, materiaSelecionada, n1, n2, n3);
                                     gerenciadorAvaliacoes.salvarAvaliacaoEmArquivo(avaliacao);
                                     pausa(sc);
+
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Entrada inválida! Digite apenas números.");
+                                        sc.nextLine();
+                                        pausa(sc);
+                                        break;
+                                    }
+                                }
+
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Entrada inválida! Digite apenas números.");
+                                    sc.nextLine();
+                                    pausa(sc);
+                                    break;
                                 }
                             }
                         break;
@@ -205,10 +243,12 @@ public class Main {
                                     break;
                                 }
                                 else{
+
                                     for(int i = 0; i < gerenciadorMateria.getMaterias().size(); i++){
                                         Materia m = gerenciadorMateria.getMaterias().get(i);
                                         System.out.println((i + 1) + ". " + m.getNomeMateria() + " (Código: " + m.getCodigo() + ")");
                                     }
+
                                     System.out.print("Escolha uma opcao: ");
                                     int materiaIndex = sc.nextInt() - 1;
                                     sc.nextLine();

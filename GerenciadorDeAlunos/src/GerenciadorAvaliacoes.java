@@ -62,7 +62,7 @@ public class GerenciadorAvaliacoes {
                             .orElse(null);
 
                     if (aluno == null || materia == null) {
-                        System.out.println("⚠️ Registro ignorado (aluno ou matéria não encontrados): " + linha);
+                        System.out.println("Registro ignorado (aluno ou matéria não encontrados): " + linha);
                         continue;
                     }
 

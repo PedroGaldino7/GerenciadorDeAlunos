@@ -76,7 +76,7 @@ public class GerenciadorAluno {
         }
     }
 
-    public List<Aluno> getAlunos() {
+    public List<Aluno> getAlunos(){
         return alunos;
     }
 }
