@@ -51,6 +51,7 @@ public class Main {
             System.out.println("1. Cadastrar");
             System.out.println("2. Inserir notas do aluno");
             System.out.println("3. Listar");
+            System.out.println("4. Excluir");
             System.out.println("0. Sair");
             opcao = lerOpcao(sc, "Escolha uma opcao: ");
 
@@ -272,6 +273,61 @@ public class Main {
                                 break;
                         }
                         break;
+
+                    case 4:
+                    limparTela();
+                        System.out.println("=== Excluir ===");
+                        System.out.println("1. Excluir Aluno: ");
+                        System.out.println("2. Excluir Material: ");
+                        System.out.println("0. Voltar ao menu principal");
+                        int excOpcao = lerOpcao(sc, "Escolha uma opcao: ");
+
+                        switch(excOpcao) {
+                            case 1:
+                            limparTela();
+                                System.out.println("=== Excluir Aluno ===\n");
+                                System.out.println("Selecione o aluno para excluir: ");
+
+                                    if (gerenciadorAluno.getAlunos().isEmpty()) {
+                                        System.out.println("Nenhum aluno cadastrado.");
+                                        pausa(sc);
+                                        break;
+                                    }
+                                    else{
+
+                                        for(int i = 0; i < gerenciadorAluno.getAlunos().size(); i++){
+                                            Aluno a = gerenciadorAluno.getAlunos().get(i);
+                                            System.out.println((i + 1) + ". " + a.getNome() + " (Matrícula: " + a.getMatricula() + ")");
+                                        }
+
+                                        System.out.print("Escolha uma opcao: ");
+                                        int alunoIndex = sc.nextInt() - 1;
+                                        sc.nextLine();
+
+                                        // Aluno alunoSelecionado = gerenciadorAluno.getAlunos().get(alunoIndex);
+                                        // gerenciadorAluno.excluirAlunoDoArquivo(alunoSelecionado);
+                                        gerenciadorAluno.excluirAlunoDoArquivo(alunoIndex);
+                                        gerenciadorAluno.carregarAlunosDoArquivo();
+                                        pausa(sc);
+                                    }
+                                break;
+
+                            case 2:
+                            limparTela();
+                                System.out.println("Funcao ainda nao implementada.");
+                                pausa(sc);
+                                break;
+
+                            case 0:
+                                System.out.println("\nVoltando ao menu principal...");
+                                pausa(sc);
+                                break;
+
+                            default:
+                                System.out.println("\nOpcao invalida! Tente novamente.");
+                                pausa(sc);
+                                break;
+                        }
 
                     case 0:
                         System.out.println("\nSaindo...");

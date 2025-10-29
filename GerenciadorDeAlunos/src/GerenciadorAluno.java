@@ -76,6 +76,19 @@ public class GerenciadorAluno {
         }
     }
 
+    public boolean excluirAlunoDoArquivo(int index){
+        File arquivo = new File("alunos.txt");
+
+        if (!arquivo.exists() || arquivo.length() == 0) {
+            System.out.println("Nenhum aluno cadastrado no arquivo.");
+            return false;
+        }
+
+        alunos.remove(index);
+        salvarAlunosEmArquivo(null);
+        return true;
+    }
+
     public List<Aluno> getAlunos(){
         return alunos;
     }
