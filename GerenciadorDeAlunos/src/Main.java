@@ -237,7 +237,6 @@ public class Main {
                             case 3:
                             limparTela();
                                 System.out.println("=== Avaliações Cadastradas ===\n");
-                                System.out.println("Selecione a matéria para listar as avaliações:");
                                 if (gerenciadorMateria.getMaterias().isEmpty()) {
                                     System.out.println("Nenhuma matéria cadastrada.");
                                     pausa(sc);
@@ -245,6 +244,7 @@ public class Main {
                                 }
                                 else{
 
+                                System.out.println("Selecione a matéria para listar as avaliações:");
                                     for(int i = 0; i < gerenciadorMateria.getMaterias().size(); i++){
                                         Materia m = gerenciadorMateria.getMaterias().get(i);
                                         System.out.println((i + 1) + ". " + m.getNomeMateria() + " (Código: " + m.getCodigo() + ")");
@@ -304,10 +304,8 @@ public class Main {
                                         int alunoIndex = sc.nextInt() - 1;
                                         sc.nextLine();
 
-                                        // Aluno alunoSelecionado = gerenciadorAluno.getAlunos().get(alunoIndex);
-                                        // gerenciadorAluno.excluirAlunoDoArquivo(alunoSelecionado);
                                         gerenciadorAluno.excluirAlunoDoArquivo(alunoIndex);
-                                        gerenciadorAluno.carregarAlunosDoArquivo();
+                                        // gerenciadorAluno.carregarAlunosDoArquivo();
                                         pausa(sc);
                                     }
                                 break;

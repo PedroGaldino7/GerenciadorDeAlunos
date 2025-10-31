@@ -76,17 +76,43 @@ public class GerenciadorAluno {
         }
     }
 
-    public boolean excluirAlunoDoArquivo(int index){
+    public void excluirAlunoDoArquivo(int index){
         File arquivo = new File("alunos.txt");
 
         if (!arquivo.exists() || arquivo.length() == 0) {
-            System.out.println("Nenhum aluno cadastrado no arquivo.");
-            return false;
+            System.out.println("Nenhum aluno para remover.");
+            return;
         }
 
-        alunos.remove(index);
-        salvarAlunosEmArquivo(null);
-        return true;
+        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+            List<String> linhas = new ArrayList<>();
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                linhas.add(linha);
+            }
+
+            if (index < 0 || index >= linhas.size()) {
+                System.out.println("Índice inválido para remoção.");
+                return;
+            }
+
+            linhas.remove(index);
+            if (index < alunos.size()) {
+                alunos.remove(index);
+                
+            }
+
+            try (FileWriter writer = new FileWriter(arquivo, false)) {
+                for (String l : linhas) {
+                    writer.write(l + "\n");
+                }
+            }
+            
+            System.out.println("Aluno removido com sucesso!");
+            
+        } catch (Exception e) {
+            
+        }
     }
 
     public List<Aluno> getAlunos(){
